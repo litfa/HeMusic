@@ -1,11 +1,52 @@
 <script lang="ts" setup>
-import { toRefs, watch, ref } from 'vue'
+import { toRefs, watch, ref, computed } from 'vue'
 import { ElSlider } from 'element-plus'
 import { Play, Pause, GoEnd, GoStart } from '@icon-park/vue-next'
+import { useMusicStore } from '@/config/store'
+import { url as getUrlApi } from '@/apis/song'
+import dayjs from 'dayjs'
+const music = useMusicStore()
 
 const audio = new Audio()
-audio.src = 'http://m8.music.126.net/20220508170525/10356f47bccb1d83cbf663e8d83e6a36/ymusic/0fd6/4f65/43ed/a8772889f38dfcb91c04da915b301617.mp3'
+
+// 音乐切换
+watch(() => music.index, async () => {
+  audio.src = ''
+  if (!music.list[music.index] && !music.list[music.index]?.id) return
+  const { data: res } = await getUrlApi(music.list[music.index].id)
+  audio.src = res.data[0].url
+  audio.play()
+}, {
+  immediate: true,
+  deep: true
+})
+
+// 播放进度
 const currentTime = ref(0)
+// 总长度
+const duration = ref(0)
+
+// 更新时间
+audio.addEventListener('timeupdate', (e) => {
+  currentTime.value = audio.currentTime
+})
+// 更新音乐总长度
+audio.addEventListener('canplay', () => {
+  duration.value = audio.duration
+
+})
+// 切换播放/暂停
+const switchStatus = () => {
+  audio.paused ? audio.play() : audio.pause()
+}
+
+// 格式化后的
+const currentTimeFormat = computed(() => {
+  return dayjs(currentTime.value * 1000).format('mm:ss')
+})
+const durationFormat = computed(() => {
+  return dayjs(duration.value * 1000).format('mm:ss')
+})
 </script>
 
 <template>
@@ -14,13 +55,15 @@ const currentTime = ref(0)
     <div class="center">
       <div class="buttons">
         <go-start theme="outline" size="24" fill="rgba(17, 93, 239, 1)" />
-        <play theme="outline" size="35" fill="rgba(17, 93, 239, 1)" />
+        <div class="play" @click="switchStatus">
+          <play theme="outline" size="35" fill="rgba(17, 93, 239, 1)" />
+        </div>
         <go-end theme="outline" size="24" fill="rgba(17, 93, 239, 1)" />
       </div>
       <div class="progress">
-        <span>1:11</span>
-        <el-slider v-model="currentTime" />
-        <span>10:10</span>
+        <span>{{ currentTimeFormat }}</span>
+        <el-slider v-model="currentTime" :max="duration" />
+        <span>{{ durationFormat }}</span>
       </div>
     </div>
     <div class="right"></div>

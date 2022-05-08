@@ -3,7 +3,9 @@ import Song from '../Song/Song.vue'
 import { newsong } from '@/apis/personalized'
 import { ref } from 'vue'
 import Scrollbar from '../Scrollbar/Scrollbar.vue'
+import { useMusicStore } from '@/config/store'
 
+const music = useMusicStore()
 const songs = ref([])
 
 const getSongs = async () => {
@@ -11,6 +13,11 @@ const getSongs = async () => {
   songs.value = res.result
 }
 getSongs()
+
+const playMusic = (id) => {
+  music.setMusicList(songs.value)
+  music.play({ id })
+}
 </script>
 
 <template>
@@ -23,6 +30,7 @@ getSongs()
       :music-name="i.name"
       :author="i.song.artists[0].name"
       :music-length="i.song.duration"
+      @click="playMusic(i.id)"
     ></Song>
   </scrollbar>
 </template>
