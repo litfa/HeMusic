@@ -1,0 +1,34 @@
+<script lang="ts" setup>
+import Song from '../Song/Song.vue'
+import { newsong } from '@/apis/personalized'
+import { ref } from 'vue'
+
+const songs = ref([])
+
+const getSongs = async () => {
+  const { data: res } = await newsong()
+  songs.value = res.result
+}
+getSongs()
+</script>
+
+<template>
+  <h2>音乐</h2>
+  <Song
+    v-for="(i, index) in songs"
+    :key="i.id"
+    :index="index + 1"
+    :music-name="i.name"
+    :author="i.song.artists[0].name"
+    :music-length="i.song.duration"
+  ></Song>
+</template>
+
+<style lang="less" scoped>
+h2 {
+  color: rgba(25, 31, 53, 1);
+  letter-spacing: 0.2px;
+  font-size: 18px;
+  line-height: 28px;
+}
+</style>
