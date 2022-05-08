@@ -2,6 +2,7 @@
 import Song from '../Song/Song.vue'
 import { newsong } from '@/apis/personalized'
 import { ref } from 'vue'
+import Scrollbar from '../Scrollbar/Scrollbar.vue'
 
 const songs = ref([])
 
@@ -14,14 +15,16 @@ getSongs()
 
 <template>
   <h2>音乐</h2>
-  <Song
-    v-for="(i, index) in songs"
-    :key="i.id"
-    :index="index + 1"
-    :music-name="i.name"
-    :author="i.song.artists[0].name"
-    :music-length="i.song.duration"
-  ></Song>
+  <scrollbar>
+    <Song
+      v-for="(i, index) in songs"
+      :key="i.id"
+      :index="index + 1"
+      :music-name="i.name"
+      :author="i.song.artists[0].name"
+      :music-length="i.song.duration"
+    ></Song>
+  </scrollbar>
 </template>
 
 <style lang="less" scoped>
