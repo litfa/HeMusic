@@ -35,7 +35,7 @@ getBanner()
 <style lang="less" scoped>
 .swiper {
   width: 928px;
-  height: 268px;
+  height: 200px;
 }
 
 .swiper-container {
