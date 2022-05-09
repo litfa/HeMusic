@@ -40,6 +40,13 @@ const switchStatus = () => {
   audio.paused ? audio.play() : audio.pause()
 }
 
+// 拖进度条
+const change = (val) => {
+  console.log(val)
+  audio.currentTime = val
+
+}
+
 // 格式化后的
 const currentTimeFormat = computed(() => {
   return dayjs(currentTime.value * 1000).format('mm:ss')
@@ -62,7 +69,7 @@ const durationFormat = computed(() => {
       </div>
       <div class="progress">
         <span>{{ currentTimeFormat }}</span>
-        <el-slider v-model="currentTime" :max="duration" />
+        <el-slider v-model="currentTime" :max="duration" @change="change" />
         <span>{{ durationFormat }}</span>
       </div>
     </div>
