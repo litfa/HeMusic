@@ -26,6 +26,7 @@ const playMusic = (id) => {
     <Song
       v-for="(i, index) in songs"
       :key="i.id"
+      :id="i.id"
       :index="index + 1"
       :music-name="i.name"
       :author="i.song.artists[0].name"

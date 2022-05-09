@@ -41,6 +41,7 @@ const play = (e) => {
         <Song
           v-for="(i, index) in results"
           :key="i.id"
+          :id="i.id"
           :index="index + 1"
           :music-name="i.name"
           :author="i.ar[0].name"

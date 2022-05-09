@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 import propNames from './props'
 import dayjs from 'dayjs'
+import { useMusicStore } from '@/config/store'
+import PlayingIcon from '@/components/PlayingIcon/PlayingIcon.vue'
 const props = defineProps(propNames)
+const music = useMusicStore()
 
 const formatDate = (duration: string | number) => {
   return dayjs(duration).format('mm:ss')
@@ -9,9 +12,14 @@ const formatDate = (duration: string | number) => {
 </script>
 
 <template>
-  <div class="song">
+  <div class="song" :class="{ active: props.id == music.id }">
     <div class="left">
-      <div class="index">{{ index }}</div>
+      <div class="index">
+        <template v-if="props.id == music.id">
+          <PlayingIcon></PlayingIcon>
+        </template>
+        <template v-else>{{ index }}</template>
+      </div>
       <div class="name">{{ musicName }}</div>
     </div>
     <div class="right">
@@ -40,6 +48,10 @@ const formatDate = (duration: string | number) => {
   &:hover {
     background-color: #e4edff;
   }
+  &.active {
+    background: rgba(144, 182, 255, 0.4);
+    border-color: #0000;
+  }
   .left {
     width: 240px;
     display: flex;
@@ -53,6 +65,8 @@ const formatDate = (duration: string | number) => {
       height: 24px;
       line-height: 24px;
       font-size: 11px;
+      display: flex;
+      align-items: center;
     }
     .name {
       width: 160px;
