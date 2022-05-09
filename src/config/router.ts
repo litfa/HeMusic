@@ -5,6 +5,12 @@ const routes = [
   {
     path: '/',
     component: Home
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: () =>
+      import('@/pages/Search.vue')
   }
 ]
 

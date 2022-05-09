@@ -8,7 +8,7 @@ import SearchInput from '../SearchInput/SearchInput.vue'
       <div class="logo">He Music</div>
     </div>
     <div>
-      <search-input />
+      <search-input v-if="$route.path != '/search'" />
     </div>
     <div></div>
     <div></div>

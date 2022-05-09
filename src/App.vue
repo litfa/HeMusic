@@ -2,13 +2,16 @@
 import Header from './components/Header/Header.vue'
 import Menu from './components/Menu/Menu.vue'
 import Audio from './components/Audio/Audio.vue'
+import Scrollbar from './components/Scrollbar/Scrollbar.vue'
 </script>
 
 <template>
   <div class="he-music">
     <Header></Header>
     <Menu></Menu>
-    <router-view></router-view>
+    <Scrollbar class="content">
+      <router-view></router-view>
+    </Scrollbar>
     <Audio></Audio>
   </div>
 </template>
@@ -31,6 +34,11 @@ import Audio from './components/Audio/Audio.vue'
   .menu {
     grid-area: 2 / 1 / 3 / 2;
     height: 90%;
+  }
+  .content {
+    grid-area: 2 / 2 / 3 / 3;
+    height: 100%;
+    overflow-y: scroll;
   }
   .audio {
     grid-area: 3 / 1 / 4 / 3;
