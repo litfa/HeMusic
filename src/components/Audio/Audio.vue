@@ -83,10 +83,15 @@ const durationFormat = computed(() => {
 <template>
   <div class="audio">
     <div class="left">
-      <el-image class="avatar" :src="music.list[music.index]?.picUrl || ''"></el-image>
+      <el-image
+        class="avatar"
+        :src="music.list[music.index]?.picUrl || music.list[music.index]?.al.picUrl || ''"
+      ></el-image>
       <div class="data">
         <div class="name">{{ music.list[music.index]?.name }}</div>
-        <div class="author">{{ music.list[music.index]?.song.artists[0].name }}</div>
+        <div
+          class="author"
+        >{{ music.list[music.index]?.song?.artists[0]?.name || music.list[music.index]?.ar[0].name }}</div>
       </div>
     </div>
     <div class="center">

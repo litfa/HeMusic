@@ -6,8 +6,10 @@ import { useRoute, useRouter } from 'vue-router'
 import searchApi from '@/apis/search'
 import Song from '@/components/Song/Song.vue'
 import Scrollbar from '@/components/Scrollbar/Scrollbar.vue'
+import { useMusicStore } from '@/config/store'
 const route = useRoute()
 const router = useRouter()
+const music = useMusicStore()
 
 const results = ref([])
 const keywords = ref(route.query.keywords as string || '')
@@ -18,6 +20,11 @@ const search = async () => {
 }
 
 watch(() => route.query.keywords, () => search(), { immediate: true })
+
+const play = (e) => {
+  music.addMusic([e])
+  music.play({ id: e.id })
+}
 </script>
 
 <template>
@@ -37,6 +44,7 @@ watch(() => route.query.keywords, () => search(), { immediate: true })
           :author="i.ar[0].name"
           :music-length="i.dt"
           style="width: 70%;"
+          @click="play(i)"
         ></Song>
       </div>
     </scrollbar>
