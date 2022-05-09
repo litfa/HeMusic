@@ -25,6 +25,9 @@ watch(() => music.index, async () => {
 const currentTime = ref(0)
 // 总长度
 const duration = ref(0)
+// 播放模式
+// 0 顺序  1 单曲循环  2 随机
+const mode = ref(0)
 
 // 更新时间
 audio.addEventListener('timeupdate', (e) => {
@@ -33,6 +36,12 @@ audio.addEventListener('timeupdate', (e) => {
 // 更新音乐总长度
 audio.addEventListener('canplay', () => {
   duration.value = audio.duration
+})
+// 播放完毕
+audio.addEventListener('ended', (e) => {
+  if (mode.value == 0) {
+    next()
+  }
 })
 // 上曲下曲
 const next = (val = 1) => {
