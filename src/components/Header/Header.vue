@@ -5,7 +5,9 @@ import SearchInput from '../SearchInput/SearchInput.vue'
 <template>
   <div class="header">
     <div>
-      <div class="logo">He Music</div>
+      <router-link to="/">
+        <div class="logo">He Music</div>
+      </router-link>
     </div>
     <div>
       <search-input v-if="$route.path != '/search'" />
@@ -24,6 +26,9 @@ import SearchInput from '../SearchInput/SearchInput.vue'
   display: flex;
   justify-content: space-between;
   align-items: center;
+  a {
+    text-decoration: none;
+  }
   .logo {
     color: rgba(25, 31, 53, 1);
     letter-spacing: 2.4px;
