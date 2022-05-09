@@ -28,6 +28,8 @@ const duration = ref(0)
 // 播放模式
 // 0 顺序  1 单曲循环  2 随机
 const mode = ref(0)
+// 播放状态
+const status = ref(false)
 
 // 更新时间
 audio.addEventListener('timeupdate', (e) => {
@@ -43,6 +45,9 @@ audio.addEventListener('ended', (e) => {
     next()
   }
 })
+// 播放/暂停
+audio.addEventListener('pause', () => status.value = false)
+audio.addEventListener('play', () => status.value = true)
 // 上曲下曲
 const next = (val = 1) => {
   if (val > 0) {
@@ -82,7 +87,8 @@ const durationFormat = computed(() => {
       <div class="buttons">
         <go-start theme="outline" size="24" fill="rgba(17, 93, 239, 1)" @click="next(-1)" />
         <div class="play" @click="switchStatus">
-          <play theme="outline" size="35" fill="rgba(17, 93, 239, 1)" />
+          <play v-show="!status" theme="outline" size="35" fill="rgba(17, 93, 239, 1)" />
+          <pause v-show="status" theme="outline" size="35" fill="rgba(17, 93, 239, 1)" />
         </div>
         <go-end theme="outline" size="24" fill="rgba(17, 93, 239, 1)" @click="next()" />
       </div>
