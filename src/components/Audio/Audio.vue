@@ -42,9 +42,12 @@ const switchStatus = () => {
 
 // 拖进度条
 const change = (val) => {
-  console.log(val)
   audio.currentTime = val
+}
 
+// 格式化提示
+const formatTooltip = (val) => {
+  return dayjs(val * 1000).format('mm:ss')
 }
 
 // 格式化后的
@@ -69,7 +72,12 @@ const durationFormat = computed(() => {
       </div>
       <div class="progress">
         <span>{{ currentTimeFormat }}</span>
-        <el-slider v-model="currentTime" :max="duration" @change="change" />
+        <el-slider
+          v-model="currentTime"
+          :max="duration"
+          @change="change"
+          :format-tooltip="formatTooltip"
+        />
         <span>{{ durationFormat }}</span>
       </div>
     </div>
