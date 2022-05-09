@@ -19,7 +19,9 @@ const search = async () => {
   results.value = res.result.songs
 }
 
-watch(() => route.query.keywords, () => search(), { immediate: true })
+watch(() => route.query.keywords, () => {
+  if (route.path == '/search') search()
+}, { immediate: true })
 
 const play = (e) => {
   music.addMusic([e])

@@ -25,8 +25,10 @@ let timeout = setTimeout(() => { /**/ })
 const getSuggest = () => {
   clearTimeout(timeout)
   timeout = setTimeout(async () => {
-    const { data: res } = await suggest(keywords.value)
-    results.value = res.result.songs
+    if (keywords.value) {
+      const { data: res } = await suggest(keywords.value)
+      results.value = res.result?.songs
+    }
   }, 500)
 }
 </script>
@@ -92,6 +94,7 @@ const getSuggest = () => {
     transition: all 0.2s;
     display: flex;
     overflow-x: hidden;
+    z-index: 1000;
     .scrollbar {
       display: flex;
       flex-direction: column;
