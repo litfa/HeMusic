@@ -33,8 +33,15 @@ audio.addEventListener('timeupdate', (e) => {
 // 更新音乐总长度
 audio.addEventListener('canplay', () => {
   duration.value = audio.duration
-
 })
+// 上曲下曲
+const next = (val = 1) => {
+  if (val > 0) {
+    music.index == music.list.length - 1 ? music.index = 0 : music.index++
+  } else {
+    music.index == 0 ? music.index = music.list.length - 1 : music.index += val
+  }
+}
 // 切换播放/暂停
 const switchStatus = () => {
   audio.paused ? audio.play() : audio.pause()
@@ -64,11 +71,11 @@ const durationFormat = computed(() => {
     <div class="left"></div>
     <div class="center">
       <div class="buttons">
-        <go-start theme="outline" size="24" fill="rgba(17, 93, 239, 1)" />
+        <go-start theme="outline" size="24" fill="rgba(17, 93, 239, 1)" @click="next(-1)" />
         <div class="play" @click="switchStatus">
           <play theme="outline" size="35" fill="rgba(17, 93, 239, 1)" />
         </div>
-        <go-end theme="outline" size="24" fill="rgba(17, 93, 239, 1)" />
+        <go-end theme="outline" size="24" fill="rgba(17, 93, 239, 1)" @click="next()" />
       </div>
       <div class="progress">
         <span>{{ currentTimeFormat }}</span>
