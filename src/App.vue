@@ -22,11 +22,15 @@ import Audio from './components/Audio/Audio.vue'
   grid-template-rows: 60px 1fr 80px;
   // grid-column-gap: 0px;
   // grid-row-gap: 0px;
+  // justify-items: center;
+  align-items: center;
+
   .header {
     grid-area: 1 / 1 / 2 / 3;
   }
   .menu {
     grid-area: 2 / 1 / 3 / 2;
+    height: 90%;
   }
   .audio {
     grid-area: 3 / 1 / 4 / 3;

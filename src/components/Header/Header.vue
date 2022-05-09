@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-
+import SearchInput from '../SearchInput/SearchInput.vue'
 </script>
 
 <template>
@@ -7,9 +7,12 @@
     <div>
       <div class="logo">He Music</div>
     </div>
+    <div>
+      <search-input />
+    </div>
     <div></div>
     <div></div>
-    <div class="logo"></div>
+    <div></div>
   </div>
 </template>
 
