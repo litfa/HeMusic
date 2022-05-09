@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { toRefs, watch, ref, computed } from 'vue'
-import { ElSlider } from 'element-plus'
+import { ElSlider, ElImage } from 'element-plus'
 import { Play, Pause, GoEnd, GoStart } from '@icon-park/vue-next'
 import { useMusicStore } from '@/config/store'
 import { url as getUrlApi } from '@/apis/song'
@@ -82,7 +82,13 @@ const durationFormat = computed(() => {
 
 <template>
   <div class="audio">
-    <div class="left"></div>
+    <div class="left">
+      <el-image class="avatar" :src="music.list[music.index]?.picUrl || ''"></el-image>
+      <div class="data">
+        <div class="name">{{ music.list[music.index]?.name }}</div>
+        <div class="author">{{ music.list[music.index]?.song.artists[0].name }}</div>
+      </div>
+    </div>
     <div class="center">
       <div class="buttons">
         <go-start theme="outline" size="24" fill="rgba(17, 93, 239, 1)" @click="next(-1)" />
@@ -111,6 +117,34 @@ const durationFormat = computed(() => {
 .audio {
   display: flex;
   justify-content: space-around;
+  .left {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      margin-right: 16px;
+    }
+    .data {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      .name {
+        color: rgba(25, 31, 53, 1);
+        letter-spacing: -0.2px;
+        font-size: 14px;
+        line-height: 20px;
+      }
+      .author {
+        letter-spacing: 0.2px;
+        font-size: 10px;
+        line-height: 16px;
+        color: rgba(25, 31, 53, 0.48);
+      }
+    }
+  }
   .center {
     display: flex;
     flex-direction: column;
