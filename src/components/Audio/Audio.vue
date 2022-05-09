@@ -16,6 +16,7 @@ watch(() => music.index, async () => {
   const { data: res } = await getUrlApi(music.list[music.index].id)
   audio.src = res.data[0].url
   audio.play()
+  music.id = music.list[music.index]?.id
 }, {
   immediate: true,
   deep: true

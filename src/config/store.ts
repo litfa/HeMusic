@@ -6,8 +6,8 @@ export const useMusicStore = defineStore('music', {
       list: [
         // 'http://m8.music.126.net/20220508170525/10356f47bccb1d83cbf663e8d83e6a36/ymusic/0fd6/4f65/43ed/a8772889f38dfcb91c04da915b301617.mp3'
       ],
-      index: -1
-
+      index: -1,
+      id: 0
     }
   },
   // could also be defined as
